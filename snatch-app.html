@@ -246,7 +246,7 @@ html {
   margin: 0px;
   width: 100%;
   height: 265px;
-  background-image: url('./uploads/images/snatch_card.png');
+  background-image: url('./snatch_card.png');
   background-size: cover;
   background-repeat: no-repeat;
   cursor:pointer;
@@ -597,7 +597,7 @@ snatch
         <i class="fas fa-arrow-left back" style="cursor:pointer;color: black;z-index: 100;position: fixed;top:50px;left:30px;font-size:24px;" onclick="goBack()" ></i>
        
         <div class="profile_bar" style="height: auto !important;padding: 30px;box-shadow: 0px 0px 0px white !important;border:0 !important">
-                <img src="uploads/images/snatch_black.png" height="100px" width="auto">
+                <img src="snatch_black.png" height="100px" width="auto">
                 <br><br>
                 <div class="profile_name" style="position: relative;top:0px;">Single Account. Multiple Benifits!</div>
                 <input id="name_register" type="text" placeholder="Your Full Name">
@@ -657,7 +657,7 @@ snatch
 <div id="login-section"   style="width:100%; height: auto;display: none;">
         <i class="fas fa-arrow-left back" style="cursor:pointer;color: black;z-index: 100;position: fixed;top:50px;left:30px;font-size:24px;" onclick="goBack()" ></i>
         <div class="profile_bar" style="height: auto !important;padding: 30px;box-shadow: 0px 0px 0px white !important;border:0 !important">
-                <img src="uploads/images/snatch_black.png" height="100px" width="auto">
+                <img src="snatch_black.png" height="100px" width="auto">
                 <br><br>
                 <div class="profile_name" style="position: relative;top:0px;">Happiness? Just a step away!</div>
                 <input id="email_login" type="email" placeholder="Your Registered ID">
@@ -1024,7 +1024,7 @@ var userProducts;
         console.log(data);
         for(var i=0; i<data.length;i++)
         {
-                profile+='<div id="'+ data[i].product_id +'" class="up_card"><div class="up_image" style="background-image:url(\'uploads/images/' + data[i].product_image + '\')"></div><div class="up_edit" ><i class="fas fa-trash-alt" onclick="deleteProduct('+data[i].product_id+')"></i>&emsp;<i onclick="showEdit('+ i +')" class="fas fa-pen"></i></div><div class="up_details"><div class="up_name">'+ toTitleCase(data[i].product_name) +'</div><div class="up_price">Snatch Price: &#8377;'+ data[i].product_price +'</div><div class="up_category">Category: '+ toTitleCase(data[i].category)+'</div></div></div>'
+                profile+='<div id="'+ data[i].product_id +'" class="up_card"><div class="up_image" style="background-image:url(\'' + data[i].product_image + '\')"></div><div class="up_edit" ><i class="fas fa-trash-alt" onclick="deleteProduct('+data[i].product_id+')"></i>&emsp;<i onclick="showEdit('+ i +')" class="fas fa-pen"></i></div><div class="up_details"><div class="up_name">'+ toTitleCase(data[i].product_name) +'</div><div class="up_price">Snatch Price: &#8377;'+ data[i].product_price +'</div><div class="up_category">Category: '+ toTitleCase(data[i].category)+'</div></div></div>'
         }
         profile+="<div style='height:400px;width:100%;background-color:transparent'></div>"
         document.getElementById('profile-section').innerHTML = profile;
@@ -1036,7 +1036,7 @@ var userProducts;
 })
     .catch(error => {
         console.error('Error:', error);
-        document.getElementById('products-section').innerHTML+= '<img width="30%" height="auto" src="uploads/images/cart_banner.png"><br><Br><p style="font-size:20px;color:gray">Looks like we lost the connection!</p><br><br><div class="big_block" onclick="javascript: window.location.reload()" ><div class="load_more" style="width:50%;cursor:pointer" >RETRY CONNECTION</div></div>';
+        document.getElementById('products-section').innerHTML+= '<img width="30%" height="auto" src="cart_banner.png"><br><Br><p style="font-size:20px;color:gray">Looks like we lost the connection!</p><br><br><div class="big_block" onclick="javascript: window.location.reload()" ><div class="load_more" style="width:50%;cursor:pointer" >RETRY CONNECTION</div></div>';
         });
 
         document.getElementById('products-section').style.display='none';
@@ -1179,7 +1179,7 @@ var minIndex=[];
                 for(var i=0; i<data.length; i++)
                 {
                         product_array.push(data[i]);
-                        var new_product = '<div onclick="viewProduct('+ (product_array.length-1)  +')" class="card" id="'+ data[i].product_id  +'"><div class="card-img" style="background-image:url(\'uploads/images/'+ data[i].product_image +'\') !important;background-position:center !important;"></div><div class="card-title">' + data[i].product_name +'</div><div class="card-price">&#8377; ' + data[i].product_price +'</div><div class="product-badge"></div><div class="product-buy" onclick="addToCart('+ (product_array.length-1) +')"></div></div>';
+                        var new_product = '<div onclick="viewProduct('+ (product_array.length-1)  +')" class="card" id="'+ data[i].product_id  +'"><div class="card-img" style="background-image:url(\''+ data[i].product_image +'\') !important;background-position:center !important;"></div><div class="card-title">' + data[i].product_name +'</div><div class="card-price">&#8377; ' + data[i].product_price +'</div><div class="product-badge"></div><div class="product-buy" onclick="addToCart('+ (product_array.length-1) +')"></div></div>';
                        
                         document.getElementById('products-section').innerHTML+= new_product;
                 }
@@ -1187,7 +1187,7 @@ var minIndex=[];
         }
         else
         {
-                document.getElementById('products-section').innerHTML+= '<img width="50%" height="auto" src="uploads/images/search_banner.png"><br><p style="font-size:20px;color:gray">What about trying something else?</p><div class="big_block" ><div class="load_more" style="background-color:grey;cursor:not-allowed" >NO MATCHING RESULTS FOUND</div></div>';
+                document.getElementById('products-section').innerHTML+= '<img width="50%" height="auto" src="search_banner.png"><br><p style="font-size:20px;color:gray">What about trying something else?</p><div class="big_block" ><div class="load_more" style="background-color:grey;cursor:not-allowed" >NO MATCHING RESULTS FOUND</div></div>';
         }
             })
     .catch(error => {
@@ -1278,17 +1278,17 @@ var minIndex=[];
                 for(var i=0; i<data.length; i++)
                 {
                         product_array.push(data[i]);
-                        var new_product = '<div onclick="viewProduct('+ (product_array.length-1)  +')" class="card" id="'+ data[i].product_id  +'"><div class="card-img" style="background-image:url(\'uploads/images/'+ data[i].product_image +'\') !important;background-position:center !important;"></div><div class="card-title">' + data[i].product_name +'</div><div class="card-price">&#8377; ' + data[i].product_price +'</div><div class="product-badge"></div><div class="product-buy" onclick="addToCart('+ (product_array.length-1) +')"></div></div>';
+                        var new_product = '<div onclick="viewProduct('+ (product_array.length-1)  +')" class="card" id="'+ data[i].product_id  +'"><div class="card-img" style="background-image:url(\''+ data[i].product_image +'\') !important;background-position:center !important;"></div><div class="card-title">' + data[i].product_name +'</div><div class="card-price">&#8377; ' + data[i].product_price +'</div><div class="product-badge"></div><div class="product-buy" onclick="addToCart('+ (product_array.length-1) +')"></div></div>';
                        
                         document.getElementById('products-section').innerHTML+= new_product;
                 }
                 document.getElementById('products-section').innerHTML+= '<div class="big_block" id="lm_big" onclick="loadMore()"><div class="load_more">LOAD MORE</div></div>';
         }
-        else document.getElementById('products-section').innerHTML+= '<div style="height:30vh;"></div><img width="35%" height="auto" src="uploads/images/shop_banner.png"><br><p style="font-size:20px;color:gray">Money can’t buy happiness.<br> For everything else, there is Snatch!</p><div class="big_block" ><div class="load_more" style="background-color:grey;cursor:not-allowed" >NO MORE ITEMS TO LOAD</div></div>';
+        else document.getElementById('products-section').innerHTML+= '<div style="height:30vh;"></div><img width="35%" height="auto" src="shop_banner.png"><br><p style="font-size:20px;color:gray">Money can’t buy happiness.<br> For everything else, there is Snatch!</p><div class="big_block" ><div class="load_more" style="background-color:grey;cursor:not-allowed" >NO MORE ITEMS TO LOAD</div></div>';
             })
     .catch(error => {
         console.error('Error:', error);
-        document.getElementById('products-section').innerHTML+= '<br><br><br><br><img width="40%" height="auto" src="uploads/images/snatch_black.png"><br><BR><BR><p style="font-size:20px;color:gray">Your Demands. Our Passion!</p><br><br><div class="big_block" onclick="javascript: window.location.reload()" ><div class="load_more" style="width:50%;cursor:pointer" >UNDER MAINTENANCE | RETRY CONNECTION</div></div>';
+        document.getElementById('products-section').innerHTML+= '<br><br><br><br><img width="40%" height="auto" src="snatch_black.png"><br><BR><BR><p style="font-size:20px;color:gray">Your Demands. Our Passion!</p><br><br><div class="big_block" onclick="javascript: window.location.reload()" ><div class="load_more" style="width:50%;cursor:pointer" >UNDER MAINTENANCE | RETRY CONNECTION</div></div>';
         });
     }
 
@@ -1394,8 +1394,8 @@ function viewProduct(id){
         
         var data = product_array[id];
                         var new_product;
-                        if(flag===0) new_product='<div class="left-view"><div class="product-image-view" style="background-image:url(\'uploads/images/'+ data.product_image +'\');background-position:center;"></div><div class="addtocart button" id="gtc" onclick="addToCart(' + id +')">ADD TO CART</div><div class="checkoutnow button" onclick="checkout('+ id +')" id="btc">BUY THIS NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
-                       else new_product='<div class="left-view"><div class="product-image-view"style="background-image:url(\'uploads/images/'+ data.product_image +'\'); background-position:center;"></div><div class="addtocart button" id="gtc" onclick="showCart()">GO TO CART</div><div class="checkoutnow button" onclick="checkout('+ id +')" id="btc">CHECKOUT NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
+                        if(flag===0) new_product='<div class="left-view"><div class="product-image-view" style="background-image:url(\''+ data.product_image +'\');background-position:center;"></div><div class="addtocart button" id="gtc" onclick="addToCart(' + id +')">ADD TO CART</div><div class="checkoutnow button" onclick="checkout('+ id +')" id="btc">BUY THIS NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
+                       else new_product='<div class="left-view"><div class="product-image-view"style="background-image:url(\''+ data.product_image +'\'); background-position:center;"></div><div class="addtocart button" id="gtc" onclick="showCart()">GO TO CART</div><div class="checkoutnow button" onclick="checkout('+ id +')" id="btc">CHECKOUT NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
                         document.getElementById('view-section').innerHTML+= new_product;
                         
                 }
@@ -1586,7 +1586,7 @@ function viewProduct(id){
                 }
         if(cart_items.length==0)
         {
-                cart_divs+='<img width="30%" height="auto" src="uploads/images/cart_banner.png"><br><Br><p style="font-size:20px;color:gray">Its feels lonely in here!</p><br><br><div class="button" style="width:50%" onclick="showProducts()">START SHOPPING</div>';
+                cart_divs+='<img width="30%" height="auto" src="cart_banner.png"><br><Br><p style="font-size:20px;color:gray">Its feels lonely in here!</p><br><br><div class="button" style="width:50%" onclick="showProducts()">START SHOPPING</div>';
         }
         else
         {
