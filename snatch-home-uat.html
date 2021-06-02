@@ -462,12 +462,13 @@ html {
         }
         .product-discount-view{
                 margin-top: 5px;
-                font-size: 18px;
+                font-size: 20px;
                 color: green;
         }
         .product-description-view{
                 margin-top: 25px;
-                font-size: 16px;
+                font-size: 18px;
+		line-height: 1.5;
                 color: rgb(0, 0, 0);
                 height: auto;
                 width: 90%;
@@ -693,7 +694,7 @@ function toTitleCase(str) {
                 var city = document.getElementById('city_register').value;
                 var email = document.getElementById('email_register').value;
 
-                fetch('http://127.0.0.1:5000/register',  {
+                fetch('https://fast-sands-40022.herokuapp.com/register',  {
         method: 'POST',
         body: JSON.stringify({"email": email, "password":pass, "city":city, "name":name }),
         headers: {'Content-Type': 'application/json' },
@@ -738,7 +739,7 @@ function loginUser(){
                 var pass = document.getElementById('pass_login').value;
                 var email = document.getElementById('email_login').value;
                 
-                fetch('http://127.0.0.1:5000/login',  {
+                fetch('https://fast-sands-40022.herokuapp.com/login',  {
         method: 'POST',
         body: JSON.stringify({"email": email, "password":pass }),
         headers: {'Content-Type': 'application/json' },
@@ -814,7 +815,7 @@ function loginUser(){
                         buildIndex(name, des);
 
 
-                        fetch('http://127.0.0.1:5000/addProduct',  {
+                        fetch('https://fast-sands-40022.herokuapp.com/addProduct',  {
         method: 'POST',
         body: JSON.stringify({"name": name, "mrp":mrp, "price":price, "des":des, "image": uploaded_file_name, "index": index, "category": chosenClass }),
         headers: myHeaders,
@@ -919,7 +920,7 @@ index = [];
                         myHeaders.append('Content-Type', 'application/json');
 
 
-                        fetch('http://127.0.0.1:5000/editProduct',  {
+                        fetch('https://fast-sands-40022.herokuapp.com/editProduct',  {
         method: 'POST',
         body: JSON.stringify({"name": name, "mrp":mrp, "price":price, "des":des, "image": uploaded_file_name, "id": id2edit }),
         
@@ -1011,7 +1012,7 @@ var userProducts;
                 var myHeaders = new Headers();
                 myHeaders.append('Content-Type', 'application/json');
                 myHeaders.append('Authorization', auth);
-            fetch("http://127.0.0.1:5000/profile",  {
+            fetch("https://fast-sands-40022.herokuapp.com/profile",  {
         method: 'GET',
         headers: myHeaders,
     })
@@ -1076,7 +1077,7 @@ var minIndex=[];
         function getIndex(){
 
                 if(window.localStorage.getItem('collectedIndex')==null)
-                fetch("http://127.0.0.1:5000/index",  {
+                fetch("https://fast-sands-40022.herokuapp.com/index",  {
         method: 'GET',
     })
     .then(response => response.json())
@@ -1164,7 +1165,7 @@ var minIndex=[];
                 console.log(searchResults);
                 var myHeaders = new Headers();
                         myHeaders.append('Content-Type', 'application/json');
-                        fetch('http://127.0.0.1:5000/callData',  {
+                        fetch('https://fast-sands-40022.herokuapp.com/callData',  {
         method: 'POST',
         body: JSON.stringify({"products": searchResults }),
         headers: myHeaders,
@@ -1277,7 +1278,7 @@ var minIndex=[];
         document.getElementById('add-section').style.display='none';
         document.getElementById('edit-section').style.display='none';
 
-            fetch("http://127.0.0.1:5000/products?category="+category+'&offset='+offset+'&filter='+filter+'&low='+low+'&high='+high,  {
+            fetch("https://fast-sands-40022.herokuapp.com/products?category="+category+'&offset='+offset+'&filter='+filter+'&low='+low+'&high='+high,  {
         method: 'GET',
     })
     .then(response => response.json())
@@ -1452,7 +1453,7 @@ function viewProduct(id){
                 
                 var myHeaders = new Headers();
                         myHeaders.append('Content-Type', 'application/json');
-                fetch('http://127.0.0.1:5000/logout',  {
+                fetch('https://fast-sands-40022.herokuapp.com/logout',  {
         method: 'POST',
         body: JSON.stringify({"cart": cart , "email": email }),
         headers: myHeaders,
@@ -1505,7 +1506,7 @@ function viewProduct(id){
                 var myHeaders = new Headers();
                         myHeaders.append('Authorization', auth);
                         myHeaders.append('Content-Type', 'application/json');
-                        fetch('http://127.0.0.1:5000/delete',  {
+                        fetch('https://fast-sands-40022.herokuapp.com/delete',  {
         method: 'POST',
         body: JSON.stringify({"id": db_id }),
         headers: myHeaders,
@@ -1657,7 +1658,7 @@ function viewProduct(id){
                         myHeaders.append('Authorization', auth);
                         myHeaders.append('Content-Type', 'application/json');
 
-                fetch('http://127.0.0.1:5000/verify',  {
+                fetch('https://fast-sands-40022.herokuapp.com/verify',  {
         method: 'GET',
         headers: myHeaders,
     })
