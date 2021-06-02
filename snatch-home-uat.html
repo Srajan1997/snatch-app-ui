@@ -15,9 +15,18 @@
         cursor: pointer;
 }
 
+			
 html {
-    overflow-y: auto;
+    overflow: scroll;
     overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: transparent;
 }
 
 
@@ -399,10 +408,12 @@ html {
                                 left:15vw;
                                 padding: 3%;
                                 padding-bottom: 400px;
+				overflow-y:scroll;
                         }
 
 
                         .body{
+				overflow:hidden;
                                 
                         }
 
