@@ -15,6 +15,7 @@
         cursor: pointer;
 }
 
+			
 html {
     overflow: scroll;
     overflow-x: hidden;
@@ -27,6 +28,7 @@ html {
 ::-webkit-scrollbar-thumb {
     background: transparent;
 }
+
 
 .profile_img{
         height: 100px;
@@ -401,17 +403,17 @@ html {
                         
                         .section{
                                 position: fixed;
-                                overflow-y: auto;
                                 width: 64vw;
                                 height: 100vh;
                                 left:15vw;
                                 padding: 3%;
                                 padding-bottom: 400px;
+				overflow-y:scroll;
                         }
 
 
                         .body{
-                                overflow: hidden;
+				overflow:hidden;
                                 
                         }
 
@@ -468,6 +470,7 @@ html {
         .product-description-view{
                 margin-top: 25px;
                 font-size: 16px;
+		line-height: 1.5;
                 color: rgb(0, 0, 0);
                 height: auto;
                 width: 90%;
@@ -528,7 +531,7 @@ html {
         </head>
         <body>
                 
-                <form class="example">
+                <form class="example" onsubmit="return false">
                         <div style="width: 10vw;"><input type="text" placeholder="Search Snatch" style="width: 17vw !important;text-align: left !important;padding-left:30px;" class="search" id="search_bar" ><i class="fa fa-search" style="position:fixed;font-size: 16px;color:gray;margin-top: 48px;margin-left: 18vw;z-index:400;cursor: pointer;" onclick="searchTerm()"></i></div>
                       </form>
                 <div class="filter-bar" id="fb" style="display: none;">
@@ -579,7 +582,7 @@ html {
 <img src="snatch_logo.png" height="70px" width="auto">
         </div>
         <div class="holder" style="display: flex;">
-        <div class="sell-icon"onclick="showAdd()"><i class="fa fa-plus" id="sell"></i></div>
+        <div class="sell-icon" onclick="showAdd()"><i class="fa fa-plus" onclick="showAdd()" id="sell"></i></div>
         <div class="cart-icon"><i class="fa fa-shopping-cart" id="cart"  onclick="showCart()"></i></div>
         <div class="power-icon" onclick="logout(1)"><i class="fas fa-power-off" id="power"></i></div>
         </div>
@@ -832,7 +835,10 @@ function loginUser(){
                 uploaded_file_name='snatch_default.png';
                 index = [];
                 showProfile();
-                snatchAlert("Product was successfully added to Snatch Product Listing.",1)
+                snatchAlert("Product was successfully added to Snatch Product Listing.",1);
+                window.localStorage.removeItem('collectedIndex');
+                window.localStorage.removeItem('minIndex');
+                getIndex();
         }
         if(data.code==-4)
         {
@@ -1024,6 +1030,10 @@ var userProducts;
         profile+= '<div class="profile_bar"><div class="profile_img" style="background-size:cover;background-position:center;background-repeat:no-repeat;background-color:gray;background-image:url(\'snatch_avatar.png\')"></div><div class="profile_name">'+ toTitleCase(data.name)+'</div><div class="profile_city">'+ data.city +'</div><div class="profile_age">Member since '+ time +'</div></div>';
         data = pdata;
         console.log(data);
+        if(data.length===0)
+        {
+                profile+='<div style="background-size:contain;background-position:center;background-repeat:no-repeat;height:400px;width:auto;background-image:url(\'profile_banner.png\')"></div><div style="font-size:24px;color:gray;"><br><bR>Engage the power of E-Commerce. <br>Start selling with Snatch today!</div>'
+        }
         for(var i=0; i<data.length;i++)
         {
                 profile+='<div id="'+ data[i].product_id +'" class="up_card"><div class="up_image" style="background-image:url(\'' + data[i].product_image + '\')"></div><div class="up_edit" ><i class="fas fa-trash-alt" onclick="deleteProduct('+data[i].product_id+')"></i>&emsp;<i onclick="showEdit('+ i +')" class="fas fa-pen"></i></div><div class="up_details"><div class="up_name">'+ toTitleCase(data[i].product_name) +'</div><div class="up_price">Snatch Price: &#8377;'+ data[i].product_price +'</div><div class="up_category">Category: '+ toTitleCase(data[i].category)+'</div></div></div>'
@@ -1103,6 +1113,7 @@ var minIndex=[];
         console.error('Error:', error);
         });
     }
+
 
     function searchTerm(){
 
@@ -1257,10 +1268,10 @@ var minIndex=[];
                 showProducts();
         }
 	 function loadProducts() {
-                 getIndex();
                  his_array.push('products');
          console.log("Attempting to load Products");
          document.getElementById('products-section').style.display='';
+         document.getElementById('products-section').innerHTML+='<img style="margin-top:30%" id="loader" src="spinner.gif">';
         document.getElementById('view-section').style.display='none';
         document.getElementById('profile-section').style.display='none';
         document.getElementById('cart-section').style.display='none';
@@ -1275,6 +1286,7 @@ var minIndex=[];
     .then(response => response.json())
         .then(function(data){ 
             console.log(data);
+            document.getElementById('loader').style.display = 'none';
             if(data.length>0)
             {
                 for(var i=0; i<data.length; i++)
@@ -1381,10 +1393,11 @@ function viewProduct(id){
         document.getElementById('edit-section').style.display='none';
         cart_array = JSON.parse(window.localStorage.getItem('cart'));
         var flag=0;
-        if(window.localStorage.getItem('cart')!==null)
+        if(!( JSON.parse(window.localStorage.getItem('cart'))===null))
         {
         cart_array = JSON.parse(window.localStorage.getItem('cart'));
-                
+
+                console.log("This is cart_array: ",cart_array)
                 for(var i=0; i<cart_array.length;i++)
                 {
                         if(cart_array[i].product_id.toString()===product_array[id].product_id.toString()) flag=1;
@@ -1396,8 +1409,8 @@ function viewProduct(id){
         
         var data = product_array[id];
                         var new_product;
-                        if(flag===0) new_product='<div class="left-view"><div class="product-image-view" style="background-image:url(\''+ data.product_image +'\');background-position:center;"></div><div class="addtocart button" id="gtc" onclick="addToCart(' + id +')">ADD TO CART</div><div class="checkoutnow button" onclick="checkout('+ id +')" id="btc">BUY THIS NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
-                       else new_product='<div class="left-view"><div class="product-image-view"style="background-image:url(\''+ data.product_image +'\'); background-position:center;"></div><div class="addtocart button" id="gtc" onclick="showCart()">GO TO CART</div><div class="checkoutnow button" onclick="checkout('+ id +')" id="btc">CHECKOUT NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
+                        if(flag===0) new_product='<div class="left-view"><div class="product-image-view" style="background-image:url(\''+ data.product_image +'\');background-position:center;"></div><div class="addtocart button" id="gtc" onclick="addToCart(' + id +')">ADD TO CART</div><div class="checkoutnow button" onclick="show_animation()" id="btc">BUY THIS NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
+                       else new_product='<div class="left-view"><div class="product-image-view"style="background-image:url(\''+ data.product_image +'\'); background-position:center;"></div><div class="addtocart button" id="gtc" onclick="showCart()">GO TO CART</div><div class="checkoutnow button" onclick="show_animation()" id="btc">CHECKOUT NOW</div></div><div class="right-view"><div class="product-title-view">'+data.product_name+' | &#8377;'+ data.product_price + '</div><div class="product-discount-view">MRP: &#8377;' + data.product_mrp + ' | Discount: &#8377;'+ (data.product_mrp-data.product_price) + ' ('+ parseInt(((data.product_mrp-data.product_price)/data.product_mrp)*100) + '%)</div><div class="product-description-view" style="margin-bottom:50px;">' + data.product_description + '</div></div>';
                         document.getElementById('view-section').innerHTML+= new_product;
                         
                 }
@@ -1461,13 +1474,17 @@ function viewProduct(id){
                 getIndex();
                 if(id==1) snatchAlert("You have Logged Out successfully! Your Cart data has been saved to Snatch Servers.",1);
                 if(id==2) snatchAlert("You were Logged out automatically to keep your data Safe! Please Login to continue.",0);
+                document.getElementById('profile-section').innerHTML='';
+                showLogin();
             }
             else if(data.code===-4)
         {
-                snatchAlert("Snatch Servers currently unreachable! Your cart has not been saved.",0)
+                snatchAlert("Snatch Servers currently unreachable! Your cart has not been saved.",0);
+                showLogin();
         }
         else{
                 snatchAlert("You have Logged Out successfully! Your Cart data has been saved to Snatch Servers.",-1);
+                showLogin();
         }
     })
     .catch(error => {
@@ -1519,6 +1536,7 @@ function viewProduct(id){
     function loadMore()
         {
                 document.getElementById('lm_big').remove();
+                document.getElementById('loader').remove();
                 offset+=12;
                 loadProducts();
         }
@@ -1542,9 +1560,11 @@ function viewProduct(id){
         }
         var cart_array = [];
         function addToCart(id){
-        if(window.localStorage.getItem('cart')!==null)
+        if(!( JSON.parse(window.localStorage.getItem('cart'))===null))
         {
+                console.log("This is cart_array2: ",window.localStorage.getItem('cart'))
         cart_array = JSON.parse(window.localStorage.getItem('cart'));
+        console.log("This is cart_array2: ",cart_array)
         }
         else cart_array = [];
                 var flag=1;
@@ -1574,10 +1594,10 @@ function viewProduct(id){
         document.getElementById('edit-section').style.display='none';
         
         cart_items = [];
-        if(window.localStorage.getItem('cart'))
+        if(!( JSON.parse(window.localStorage.getItem('cart'))===null))
         {
         cart_items = JSON.parse(window.localStorage.getItem('cart'));
-        console.log(cart_items);
+        console.log("This is cart items: ",cart_items);
         }
         var cart_divs = '<h1 style="margin:30px;">Cart | ' + cart_items.length + ' Items </h1><i class="fas fa-arrow-left back" style="cursor:pointer;color: black;z-index: 100;position: fixed;top:50px;left:30px;font-size:24px;" onclick="goBack()" ></i>';
                 if(!window.localStorage.getItem('email')){
@@ -1602,7 +1622,7 @@ function viewProduct(id){
                 cart_divs+=cart_product;
         }
         cart_divs+="<div style='font-size:20px'>Total MRP: &#8377;"+ totalMRP + "&emsp;|&emsp;Snatch Price: &#8377;"+ totalCost +"</div>";
-        cart_divs+='<div class="button" style="width:60% !important;">Total Savings: &#8377;'+ (totalMRP-totalCost) + ' (' + parseInt(((totalMRP-totalCost)/totalMRP)*100) +'%)&emsp;|&emsp;PROCEED TO CHECKOUT</div><div style="height:15vh;width:40vw;"></div>';
+        cart_divs+='<div class="button" style="width:60% !important;" onclick="show_animation()">Total Savings: &#8377;'+ (totalMRP-totalCost) + ' (' + parseInt(((totalMRP-totalCost)/totalMRP)*100) +'%)&emsp;|&emsp;PROCEED TO CHECKOUT</div><div style="height:15vh;width:40vw;"></div>';
 }
         document.getElementById('cart-section').innerHTML=cart_divs;
         }
@@ -1674,6 +1694,17 @@ function viewProduct(id){
 
 
 
+    function show_animation(){
+            showCart();
+        document.getElementById('cart-section').innerHTML="<div style='height:60%;width:auto;'><img src='checkout_animation.gif' height='100%' width='auto'></div><div style='color:green;font-size:24px'>You are awesome! Thanks for snatching with us.<BR><br>Happiness on its way!</div>";
+        setTimeout(function(){showProducts()},6000);
+        window.localStorage.removeItem('cart');
+    }
+
+
+    window.localStorage.removeItem('collectedIndex');
+                window.localStorage.removeItem('minIndex');
+                getIndex();
 
 </script>
 </html>
