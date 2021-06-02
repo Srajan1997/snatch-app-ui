@@ -16,17 +16,10 @@
 }
 
 html {
-    overflow: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
-::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-}
-/* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background: transparent;
-}
+
 
 .profile_img{
         height: 100px;
@@ -401,7 +394,6 @@ html {
                         
                         .section{
                                 position: fixed;
-                                overflow-y: auto;
                                 width: 64vw;
                                 height: 100vh;
                                 left:15vw;
@@ -411,7 +403,6 @@ html {
 
 
                         .body{
-                                overflow: hidden;
                                 
                         }
 
