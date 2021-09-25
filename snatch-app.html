@@ -698,7 +698,7 @@ function toTitleCase(str) {
                 var city = document.getElementById('city_register').value;
                 var email = document.getElementById('email_register').value;
 
-                fetch('https://fast-sands-40022.herokuapp.com/register',  {
+                fetch('https://snatch-backend-server.herokuapp.com/register',  {
         method: 'POST',
         body: JSON.stringify({"email": email, "password":pass, "city":city, "name":name }),
         headers: {'Content-Type': 'application/json' },
@@ -743,7 +743,7 @@ function loginUser(){
                 var pass = document.getElementById('pass_login').value;
                 var email = document.getElementById('email_login').value;
                 
-                fetch('https://fast-sands-40022.herokuapp.com/login',  {
+                fetch('https://snatch-backend-server.herokuapp.com/login',  {
         method: 'POST',
         body: JSON.stringify({"email": email, "password":pass }),
         headers: {'Content-Type': 'application/json' },
@@ -819,7 +819,7 @@ function loginUser(){
                         buildIndex(name, des);
 
 
-                        fetch('https://fast-sands-40022.herokuapp.com/addProduct',  {
+                        fetch('https://snatch-backend-server.herokuapp.com/addProduct',  {
         method: 'POST',
         body: JSON.stringify({"name": name, "mrp":mrp, "price":price, "des":des, "image": uploaded_file_name, "index": index, "category": chosenClass }),
         headers: myHeaders,
@@ -924,7 +924,7 @@ index = [];
                         myHeaders.append('Content-Type', 'application/json');
 
 
-                        fetch('https://fast-sands-40022.herokuapp.com/editProduct',  {
+                        fetch('https://snatch-backend-server.herokuapp.com/editProduct',  {
         method: 'POST',
         body: JSON.stringify({"name": name, "mrp":mrp, "price":price, "des":des, "image": uploaded_file_name, "id": id2edit }),
         
@@ -1016,7 +1016,7 @@ var userProducts;
                 var myHeaders = new Headers();
                 myHeaders.append('Content-Type', 'application/json');
                 myHeaders.append('Authorization', auth);
-            fetch("https://fast-sands-40022.herokuapp.com/profile",  {
+            fetch("https://snatch-backend-server.herokuapp.com/profile",  {
         method: 'GET',
         headers: myHeaders,
     })
@@ -1081,7 +1081,7 @@ var minIndex=[];
         function getIndex(){
 
                 if(window.localStorage.getItem('collectedIndex')==null)
-                fetch("https://fast-sands-40022.herokuapp.com/index",  {
+                fetch("https://snatch-backend-server.herokuapp.com/index",  {
         method: 'GET',
     })
     .then(response => response.json())
@@ -1169,7 +1169,7 @@ var minIndex=[];
                 console.log(searchResults);
                 var myHeaders = new Headers();
                         myHeaders.append('Content-Type', 'application/json');
-                        fetch('https://fast-sands-40022.herokuapp.com/callData',  {
+                        fetch('https://snatch-backend-server.herokuapp.com/callData',  {
         method: 'POST',
         body: JSON.stringify({"products": searchResults }),
         headers: myHeaders,
@@ -1282,7 +1282,7 @@ var minIndex=[];
         document.getElementById('add-section').style.display='none';
         document.getElementById('edit-section').style.display='none';
 
-            fetch("https://fast-sands-40022.herokuapp.com/products?category="+category+'&offset='+offset+'&filter='+filter+'&low='+low+'&high='+high,  {
+            fetch("https://snatch-backend-server.herokuapp.com/products?category="+category+'&offset='+offset+'&filter='+filter+'&low='+low+'&high='+high,  {
         method: 'GET',
     })
     .then(response => response.json())
@@ -1457,7 +1457,7 @@ function viewProduct(id){
                 
                 var myHeaders = new Headers();
                         myHeaders.append('Content-Type', 'application/json');
-                fetch('https://fast-sands-40022.herokuapp.com/logout',  {
+                fetch('https://snatch-backend-server.herokuapp.com/logout',  {
         method: 'POST',
         body: JSON.stringify({"cart": cart , "email": email }),
         headers: myHeaders,
@@ -1510,7 +1510,7 @@ function viewProduct(id){
                 var myHeaders = new Headers();
                         myHeaders.append('Authorization', auth);
                         myHeaders.append('Content-Type', 'application/json');
-                        fetch('https://fast-sands-40022.herokuapp.com/delete',  {
+                        fetch('https://snatch-backend-server.herokuapp.com/delete',  {
         method: 'POST',
         body: JSON.stringify({"id": db_id }),
         headers: myHeaders,
@@ -1662,7 +1662,7 @@ function viewProduct(id){
                         myHeaders.append('Authorization', auth);
                         myHeaders.append('Content-Type', 'application/json');
 
-                fetch('https://fast-sands-40022.herokuapp.com/verify',  {
+                fetch('https://snatch-backend-server.herokuapp.com/verify',  {
         method: 'GET',
         headers: myHeaders,
     })
